@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BotKiller</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bulma.css') }}">
+</head>
+<body>
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">
+                The Bot Killer
+            </h1>
+            <h2 class="subtitle">
+                Annoyed with Twitter bots? You can get rid of them in one click!
+            </h2>
+            <div class="field">
+                <div class="control has-text-centered">
+                    {% if 'twitter_token' in session %}
+                        <button class="button is-large is-link" id="main-button">Kill them all!</button>
+                    {% else %}
+                        <a class="button is-large is-link" id="login-button" href="login">Login to Twitter</a>
+                    {% endif %}
+                </div>
+            </div>
+            <p id="results"></p>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    'use strict';
+    let killbutton = document.getElementById('main-button');
+    if (killbutton) {
+        killbutton.onclick = (event) => {
+            fetch('botkill', {credentials: 'same-origin'}).then(async data => {
+                let killed_bots = await data.json();
+                document.getElementById('results').innerText = 'You have killed ' + killed_bots.killed_bots + ' bots! Congrats!'
+            });
+        }
+    }
+</script>
+</body>
+</html>
