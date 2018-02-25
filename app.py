@@ -6,8 +6,6 @@ import os, json
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-TOKEN_KEY = os.environ['TOKEN_KEY']
-TOKEN_SECRET = os.environ['TOKEN_SECRET']
 
 app = Flask(__name__)
 app.debug = True
